@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace JwtTest.Features.Auth.DTOs;
+namespace JwtTest.Features.AuthFeature.DTOs;
 
 public record AuthRequestDto
 (

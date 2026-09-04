@@ -1,4 +1,4 @@
-using JwtTest.Features.Auth.DTOs;
+using JwtTest.Features.AuthFeature.DTOs;
 namespace JwtTest.Features.AuthFeature;
 
 public interface IAuthService

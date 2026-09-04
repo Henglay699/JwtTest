@@ -1,7 +1,8 @@
-namespace JwtTest.Features.Auth.DTOs;
+namespace JwtTest.Features.AuthFeature.DTOs;
 
 public record AuthResponeDto
 (
     string AccesToken,
-    string RefreshToken
+    string RefreshToken,
+    int ExpiresInMinutes
 );

@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using JwtTest.Models;
 
 namespace JwtTest.Features.UserFeature.DTOs;
 
@@ -27,4 +28,5 @@ public sealed record UpdateUserRequest
 );
 
 public sealed record UserResponse(int Id, string UserName, string Email, List<RoleResponse> Roles);
-public sealed record RoleResponse(int Id, string RoleName);
+public sealed record RoleResponse(int Id, string RoleName, List<PermissionResponse> Permissions);
+public sealed record PermissionResponse(int Id, string PermissionName);

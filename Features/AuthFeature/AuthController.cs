@@ -1,4 +1,4 @@
-using JwtTest.Features.Auth.DTOs;
+using JwtTest.Features.AuthFeature.DTOs;
 using Microsoft.AspNetCore.Mvc;
 
 namespace JwtTest.Features.AuthFeature

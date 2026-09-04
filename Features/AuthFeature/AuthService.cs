@@ -3,7 +3,7 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using JwtTest.Data;
-using JwtTest.Features.Auth.DTOs;
+using JwtTest.Features.AuthFeature.DTOs;
 using JwtTest.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -20,14 +20,18 @@ public class AuthService(JwtTestContext _context, IConfiguration _config) : IAut
         var user = await _context.Users
             .Include(u => u.Roles)
             .FirstOrDefaultAsync(u => u.Email == toLowerCaseEmail);
-        if (user == null || !BCrypt.Net.BCrypt.Verify(login.Password.Trim(), user.PasswordHash))
+        if (user == null || !BCrypt.Net.BCrypt.Verify(login.Password.Trim(), user.PasswordHash) || !user.IsActive)
             return null;
         return await CreateTokenReponse(user, login.DeviceId);
     }
 
     private async Task<AuthResponeDto> CreateTokenReponse(User user, string deviceId)
     {
-        return new AuthResponeDto(GenerateToken(user), await GenerateAndSaveRefreshToken(user, deviceId));
+        const int expiresInSeconds = 900;
+        return new AuthResponeDto(
+            GenerateToken(user),
+            await GenerateAndSaveRefreshToken(user, deviceId),
+            expiresInSeconds);
     }
 
 

@@ -1,9 +1,7 @@
-version: '3.8'
-
 services:
   sqlserver:
     image: mcr.microsoft.com/mssql/server:2022-latest
-    container_name: sqls2022
+    container_name: sqls2022-jwt
     user: root
     environment:
       - ACCEPT_EULA=Y
@@ -11,24 +9,26 @@ services:
     ports:
       - "1433:1433"
     volumes:
-      - mssql_data:/var/opt/mssql/data
+      - sqlserver_data:/var/opt/mssql/data
     restart: always
 
   dotnet_app:
+    image: jwtest-api:latest
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: my_aspnet_app
+    container_name: web-api-jwt
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
       - ASPNETCORE_URLS=http://+:8080
       - ConnectionStrings__DockerConnection=Server=sqlserver;Database=JwtTest;User Id=sa;Password=${DB_PASSWORD};TrustServerCertificate=True;
+      # - ConnectionStrings__HostingConnection=Server=${Server};Database=${Database};User Id=${User_Id};Password=${Password};TrustServerCertificate=True;
       - Jwt__Key=${JWT_SECRET}
     ports:
-      - "5000:8080"
+      - "8080:8080"
     depends_on:
       - sqlserver
     restart: always
 
 volumes:
-  mssql_data:
+  sqlserver_data:

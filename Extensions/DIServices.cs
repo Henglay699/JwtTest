@@ -2,10 +2,9 @@ using System.Security.Claims;
 using System.Text;
 using JwtTest.Data;
 using JwtTest.Features.AuthFeature;
+using JwtTest.Features.AuthWithHttpOnly;
 using JwtTest.Features.UserFeature;
-using JwtTest.Middlewares.auth;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.IdentityModel.Tokens;
@@ -18,11 +17,12 @@ public static class DIServices
     {
         service.AddScoped<IAuthService, AuthService>();
         service.AddScoped<IUserService, UserService>();
+        service.AddScoped<IAuthHttpOnly, AuthHttpOnlyService>();
         return service;
     }
     public static IServiceCollection AddDatabaseServices(this IServiceCollection service, IConfiguration _config)
     {
-        var connStr = _config.GetConnectionString("DockerConnection");
+        var connStr = _config.GetConnectionString("DefaultConnection");
         service.AddDbContext<JwtTestContext>(option =>
                     option.UseSqlServer(connStr));
         return service;
@@ -46,10 +46,25 @@ public static class DIServices
                 ValidIssuer = _config["Jwt:Issuer"],
                 ValidAudience = _config["Jwt:Audience"],
                 IssuerSigningKey = new SymmetricSecurityKey(
-                                       Encoding.UTF8.GetBytes(_config["Jwt:Key"]!))
+                                       Encoding.UTF8.GetBytes(_config["Jwt:Key"]!)),
+                ClockSkew = TimeSpan.Zero
             };
             options.Events = new JwtBearerEvents
             {
+                // NEW: this runs first, before validation even starts. Without it,
+                // the handler only looks at the "Authorization" header, finds
+                // nothing (since the token is in a cookie now), and every request
+                // fails auth with no token ever being validated.
+                OnMessageReceived = ctx =>
+                {
+                    if (ctx.Request.Cookies.TryGetValue("access_token", out var token))
+                    {
+                        ctx.Token = token;
+                    }
+                    return Task.CompletedTask;
+                },
+
+                // Unchanged - runs after OnMessageReceived's token is validated
                 OnTokenValidated = async ctx =>
                 {
                     var userId = ctx.Principal?.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -70,14 +85,11 @@ public static class DIServices
                         identity.AddClaim(new Claim(ClaimTypes.Role, role));
 
                     ctx.Principal!.AddIdentity(identity);
-
                 }
             };
         });
         services.AddAuthorization();
-        services.AddScoped<IAuthorizationHandler, PermissionAuthorizationHandler>();
-        services.AddSingleton<IAuthorizationPolicyProvider, PermissionPolicyProvider>();
-        services.AddScoped<IPermissionService, PermissionService>();
         return services;
+
     }
 }

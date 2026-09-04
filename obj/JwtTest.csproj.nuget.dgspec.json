@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\ASPNET_Project\\JwtTest\\JwtTest\\JwtTest.csproj": {}
+    "d:\\ASPNET_Project\\JwtTest\\JwtTest\\JwtTest.csproj": {}
   },
   "projects": {
-    "D:\\ASPNET_Project\\JwtTest\\JwtTest\\JwtTest.csproj": {
+    "d:\\ASPNET_Project\\JwtTest\\JwtTest\\JwtTest.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\ASPNET_Project\\JwtTest\\JwtTest\\JwtTest.csproj",
+        "projectUniqueName": "d:\\ASPNET_Project\\JwtTest\\JwtTest\\JwtTest.csproj",
         "projectName": "JwtTest",
-        "projectPath": "D:\\ASPNET_Project\\JwtTest\\JwtTest\\JwtTest.csproj",
+        "projectPath": "d:\\ASPNET_Project\\JwtTest\\JwtTest\\JwtTest.csproj",
         "packagesPath": "C:\\Users\\ASUS 15\\.nuget\\packages\\",
-        "outputPath": "D:\\ASPNET_Project\\JwtTest\\JwtTest\\obj\\",
+        "outputPath": "d:\\ASPNET_Project\\JwtTest\\JwtTest\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -50,6 +50,10 @@
         "net10.0": {
           "targetAlias": "net10.0",
           "dependencies": {
+            "AWSSDK.S3": {
+              "target": "Package",
+              "version": "[4.0.101.4, )"
+            },
             "BCrypt.Net-Next": {
               "target": "Package",
               "version": "[4.2.0, )"

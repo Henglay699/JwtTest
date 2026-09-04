@@ -1,9 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "NBgtzcaRz1o=",
+  "dgSpecHash": "3PnhcHlazxI=",
   "success": true,
-  "projectFilePath": "D:\\ASPNET_Project\\JwtTest\\JwtTest\\JwtTest.csproj",
+  "projectFilePath": "d:\\ASPNET_Project\\JwtTest\\JwtTest\\JwtTest.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\ASUS 15\\.nuget\\packages\\awssdk.core\\4.0.100.8\\awssdk.core.4.0.100.8.nupkg.sha512",
+    "C:\\Users\\ASUS 15\\.nuget\\packages\\awssdk.s3\\4.0.101.4\\awssdk.s3.4.0.101.4.nupkg.sha512",
     "C:\\Users\\ASUS 15\\.nuget\\packages\\azure.core\\1.47.1\\azure.core.1.47.1.nupkg.sha512",
     "C:\\Users\\ASUS 15\\.nuget\\packages\\azure.identity\\1.14.2\\azure.identity.1.14.2.nupkg.sha512",
     "C:\\Users\\ASUS 15\\.nuget\\packages\\bcrypt.net-next\\4.2.0\\bcrypt.net-next.4.2.0.nupkg.sha512",

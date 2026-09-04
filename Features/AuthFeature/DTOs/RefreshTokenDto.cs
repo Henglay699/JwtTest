@@ -1,4 +1,4 @@
-namespace JwtTest.Features.Auth.DTOs;
+namespace JwtTest.Features.AuthFeature.DTOs;
 
 public class RefreshTokenDto
 {
