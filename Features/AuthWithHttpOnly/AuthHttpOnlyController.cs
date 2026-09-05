@@ -13,15 +13,22 @@ public class AuthHttpOnlyController(IAuthHttpOnly authService, IAntiforgery anti
     [HttpPost("Login")]
     public async Task<IActionResult> Login([FromBody] AuthRequestDto login)
     {
-        var result = await authService.LoginAsync(login);
-        if (result is null) return BadRequest("Invalid Credential");
+        try
+        {
+            var result = await authService.LoginAsync(login);
+            // if (result is null) return BadRequest("Invalid Credential");
 
-        SetAuthCookies(result);
-        return Ok(new { accessTokenExpiresInMinutes = result.ExpiresInMinutes });
+            SetAuthCookies(result);
+            return Ok(new { accessTokenExpiresInMinutes = result.ExpiresInMinutes });
+        }
+        catch (UnauthorizedAccessException ex)
+        {
+            return Unauthorized(new { message = ex.Message });
+        }
+
     }
 
     [HttpPost("RefreshToken")]
-    [ServiceFilter(typeof(ValidateAntiForgeryTokenFilter))]
     public async Task<IActionResult> RefreshToken()
     {
         var deviceId = Request.Headers["X-Device-Id"].ToString();

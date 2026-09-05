@@ -20,8 +20,11 @@ public class AuthService(JwtTestContext _context, IConfiguration _config) : IAut
         var user = await _context.Users
             .Include(u => u.Roles)
             .FirstOrDefaultAsync(u => u.Email == toLowerCaseEmail);
-        if (user == null || !BCrypt.Net.BCrypt.Verify(login.Password.Trim(), user.PasswordHash) || !user.IsActive)
-            return null;
+        if (user == null || !BCrypt.Net.BCrypt.Verify(login.Password.Trim(), user.PasswordHash))
+            throw new UnauthorizedAccessException("Invalid email or password");
+
+        if (!user.IsActive)
+            throw new UnauthorizedAccessException("User is not active");
         return await CreateTokenReponse(user, login.DeviceId);
     }
 

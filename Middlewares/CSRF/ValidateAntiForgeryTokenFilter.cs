@@ -19,14 +19,14 @@ public class ValidateAntiForgeryTokenFilter(IAntiforgery antiforgery) : IAsyncAc
             return;
         }
 
-        if (context.HttpContext.User.Identity?.IsAuthenticated is not true)
-        {
-            context.Result = new ObjectResult(new { message = "User is not authenticated" })
-            {
-                StatusCode = StatusCodes.Status401Unauthorized
-            };
-            return;
-        }
+        // if (context.HttpContext.User.Identity?.IsAuthenticated is not true)
+        // {
+        //     context.Result = new ObjectResult(new { message = "User is not authenticated" })
+        //     {
+        //         StatusCode = StatusCodes.Status401Unauthorized
+        //     };
+        //     return;
+        // }
 
         try
         {

@@ -22,7 +22,7 @@ public static class DIServices
     }
     public static IServiceCollection AddDatabaseServices(this IServiceCollection service, IConfiguration _config)
     {
-        var connStr = _config.GetConnectionString("DefaultConnection");
+        var connStr = _config.GetConnectionString("HostingConnection");
         service.AddDbContext<JwtTestContext>(option =>
                     option.UseSqlServer(connStr));
         return service;
