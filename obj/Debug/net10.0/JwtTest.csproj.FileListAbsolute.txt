@@ -641,3 +641,4 @@ D:\ASPNET_Project\JwtTest\JwtTest\obj\Debug\net10.0\refint\JwtTest.dll
 D:\ASPNET_Project\JwtTest\JwtTest\obj\Debug\net10.0\JwtTest.pdb
 D:\ASPNET_Project\JwtTest\JwtTest\obj\Debug\net10.0\JwtTest.genruntimeconfig.cache
 D:\ASPNET_Project\JwtTest\JwtTest\obj\Debug\net10.0\ref\JwtTest.dll
+D:\ASPNET_Project\JwtTest\JwtTest\bin\Debug\net10.0\Microsoft.AspNetCore.DataProtection.EntityFrameworkCore.dll

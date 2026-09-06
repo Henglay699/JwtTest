@@ -11,10 +11,10 @@ public static class DbSeeder
     {
         using var scope = app.Services.CreateScope();
         var context = scope.ServiceProvider.GetRequiredService<JwtTestContext>();
-        // if (context.Database.GetPendingMigrations().Any())
-        // {
-        //     await context.Database.MigrateAsync();
-        // }
+        if (context.Database.GetPendingMigrations().Any())
+        {
+            await context.Database.MigrateAsync();
+        }
         await context.Database.EnsureCreatedAsync();
 
         if (!context.Permissions.Any())
