@@ -1,5 +1,6 @@
 using JwtTest.Extensions;
 using JwtTest.Middlewares.CSRF;
+using Microsoft.AspNetCore.HttpOverrides;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -50,6 +51,10 @@ builder.Services.AddCors(options =>
 //builder.WebHost.ConfigureKestrel(options => options.ListenAnyIP(7127));
 
 var app = builder.Build();
+app.UseForwardedHeaders(new ForwardedHeadersOptions
+{
+    ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+})
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
