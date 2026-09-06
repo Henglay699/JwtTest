@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "3PnhcHlazxI=",
-  "success": true,
-  "projectFilePath": "d:\\ASPNET_Project\\JwtTest\\JwtTest\\JwtTest.csproj",
+  "dgSpecHash": "o2uV+gzCJVo=",
+  "success": false,
+  "projectFilePath": "D:\\ASPNET_Project\\JwtTest\\JwtTest\\JwtTest.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ASUS 15\\.nuget\\packages\\awssdk.core\\4.0.100.8\\awssdk.core.4.0.100.8.nupkg.sha512",
     "C:\\Users\\ASUS 15\\.nuget\\packages\\awssdk.s3\\4.0.101.4\\awssdk.s3.4.0.101.4.nupkg.sha512",
@@ -11,6 +11,7 @@
     "C:\\Users\\ASUS 15\\.nuget\\packages\\bcrypt.net-next\\4.2.0\\bcrypt.net-next.4.2.0.nupkg.sha512",
     "C:\\Users\\ASUS 15\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\ASUS 15\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\10.0.9\\microsoft.aspnetcore.authentication.jwtbearer.10.0.9.nupkg.sha512",
+    "C:\\Users\\ASUS 15\\.nuget\\packages\\microsoft.aspnetcore.dataprotection.entityframeworkcore\\10.0.11\\microsoft.aspnetcore.dataprotection.entityframeworkcore.10.0.11.nupkg.sha512",
     "C:\\Users\\ASUS 15\\.nuget\\packages\\microsoft.aspnetcore.openapi\\10.0.9\\microsoft.aspnetcore.openapi.10.0.9.nupkg.sha512",
     "C:\\Users\\ASUS 15\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\8.0.0\\microsoft.bcl.asyncinterfaces.8.0.0.nupkg.sha512",
     "C:\\Users\\ASUS 15\\.nuget\\packages\\microsoft.bcl.cryptography\\9.0.4\\microsoft.bcl.cryptography.9.0.4.nupkg.sha512",
@@ -85,5 +86,17 @@
     "C:\\Users\\ASUS 15\\.nuget\\packages\\system.security.cryptography.protecteddata\\9.0.4\\system.security.cryptography.protecteddata.9.0.4.nupkg.sha512",
     "C:\\Users\\ASUS 15\\.nuget\\packages\\yamldotnet\\16.3.0\\yamldotnet.16.3.0.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1605",
+      "level": "Error",
+      "message": "Warning As Error: Detected package downgrade: Microsoft.EntityFrameworkCore from 10.0.11 to 10.0.9. Reference the package directly from the project to select a different version. \r\n JwtTest -> Microsoft.AspNetCore.DataProtection.EntityFrameworkCore 10.0.11 -> Microsoft.EntityFrameworkCore (>= 10.0.11) \r\n JwtTest -> Microsoft.EntityFrameworkCore (>= 10.0.9)",
+      "projectPath": "D:\\ASPNET_Project\\JwtTest\\JwtTest\\JwtTest.csproj",
+      "filePath": "D:\\ASPNET_Project\\JwtTest\\JwtTest\\JwtTest.csproj",
+      "libraryId": "Microsoft.EntityFrameworkCore",
+      "targetGraphs": [
+        "net10.0"
+      ]
+    }
+  ]
 }

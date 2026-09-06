@@ -1,9 +1,10 @@
 ﻿using JwtTest.Models.Entities;
+using Microsoft.AspNetCore.DataProtection.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace JwtTest.Data;
 
-public partial class JwtTestContext : DbContext
+public partial class JwtTestContext : DbContext, IDataProtectionKeyContext
 {
     public JwtTestContext()
     {
@@ -22,6 +23,7 @@ public partial class JwtTestContext : DbContext
 
     public virtual DbSet<RefreshToken> RefreshTokens { get; set; }
     public virtual DbSet<Attendance> Attendances { get; set; }
+    public DbSet<DataProtectionKey> DataProtectionKeys { get; set; }
 
     // protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     //     => optionsBuilder.UseSqlServer("Name=DefaultConnection");
@@ -115,4 +117,9 @@ public partial class JwtTestContext : DbContext
     }
 
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+
+    public bool Equals(JwtTestContext other)
+    {
+        throw new NotImplementedException();
+    }
 }

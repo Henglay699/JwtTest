@@ -29,6 +29,7 @@ builder.Services.AddAntiforgery(options =>
     options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
 });
 
+
 // THIS was the actual missing piece causing the exception -
 // nothing ever registered the filter type itself in DI
 builder.Services.AddScoped<ValidateAntiForgeryTokenFilter>();

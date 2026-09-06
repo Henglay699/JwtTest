@@ -5,6 +5,7 @@ using JwtTest.Features.AuthFeature;
 using JwtTest.Features.AuthWithHttpOnly;
 using JwtTest.Features.UserFeature;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.IdentityModel.Tokens;
@@ -25,6 +26,9 @@ public static class DIServices
         var connStr = _config.GetConnectionString("HostingConnection");
         service.AddDbContext<JwtTestContext>(option =>
                     option.UseSqlServer(connStr));
+        service.AddDataProtection()
+               .SetApplicationName("JwtTest")
+               .PersistKeysToDbContext<JwtTestContext>();
         return service;
     }
     public static IServiceCollection AddJwtAuthServices(this IServiceCollection services, IConfiguration _config)
