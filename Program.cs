@@ -28,12 +28,9 @@ builder.Services.AddAntiforgery(options =>
     options.Cookie.HttpOnly = false;
     options.Cookie.SameSite = SameSiteMode.Strict;
     options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+    options.Cookie.Expiration = TimeSpan.FromMinutes(int.Parse(builder.Configuration["Jwt:ExpirationInMinutes"] ?? "15"));
 });
 
-
-// THIS was the actual missing piece causing the exception -
-// nothing ever registered the filter type itself in DI
-builder.Services.AddScoped<ValidateAntiForgeryTokenFilter>();
 
 // still missing from your file - needed for the React app to be able to
 // call this API cross-origin with the cookies attached at all

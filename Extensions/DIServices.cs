@@ -4,6 +4,7 @@ using JwtTest.Data;
 using JwtTest.Features.AuthFeature;
 using JwtTest.Features.AuthWithHttpOnly;
 using JwtTest.Features.UserFeature;
+using JwtTest.Middlewares.CSRF;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.EntityFrameworkCore;
@@ -19,6 +20,7 @@ public static class DIServices
         service.AddScoped<IAuthService, AuthService>();
         service.AddScoped<IUserService, UserService>();
         service.AddScoped<IAuthHttpOnly, AuthHttpOnlyService>();
+        service.AddScoped<ValidateAntiForgeryTokenFilter>();
         return service;
     }
     public static IServiceCollection AddDatabaseServices(this IServiceCollection service, IConfiguration _config)

@@ -17,9 +17,9 @@ public class AuthHttpOnlyController(IAuthHttpOnly authService, IAntiforgery anti
         {
             var result = await authService.LoginAsync(login);
             // if (result is null) return BadRequest("Invalid Credential");
-
+            var csrf_tokens = antiforgery.GetAndStoreTokens(HttpContext);
             SetAuthCookies(result);
-            return Ok(new { accessTokenExpiresInMinutes = result.ExpiresInMinutes });
+            return Ok(new { accessTokenExpiresInMinutes = result.ExpiresInMinutes, csrf_token = csrf_tokens.RequestToken });
         }
         catch (UnauthorizedAccessException ex)
         {
@@ -44,7 +44,8 @@ public class AuthHttpOnlyController(IAuthHttpOnly authService, IAntiforgery anti
         }
 
         SetAuthCookies(result);
-        return Ok(new { accessTokenExpiresInMinutes = result.ExpiresInMinutes });
+        var csrf_tokens = antiforgery.GetAndStoreTokens(HttpContext);
+        return Ok(new { accessTokenExpiresInMinutes = result.ExpiresInMinutes, csrf_token = csrf_tokens.RequestToken });
     }
 
     [HttpPost("Logout")]
@@ -61,12 +62,12 @@ public class AuthHttpOnlyController(IAuthHttpOnly authService, IAntiforgery anti
         return Ok(new { message = "Logged out successfully" });
     }
 
-    [HttpGet("csrf-token")]
-    public IActionResult GetCsrfToken()
-    {
-        var tokens = antiforgery.GetAndStoreTokens(HttpContext);
-        return Ok(new { csrf_token = tokens.RequestToken });
-    }
+    // [HttpGet("csrf-token")]
+    // public IActionResult GetCsrfToken()
+    // {
+    //     var tokens = antiforgery.GetAndStoreTokens(HttpContext);
+    //     return Ok(new { csrf_token = tokens.RequestToken });
+    // }
 
     private void SetAuthCookies(AuthResponeDto result)
     {
