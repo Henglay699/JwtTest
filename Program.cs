@@ -1,9 +1,22 @@
+using DotNetEnv;
 using JwtTest.Extensions;
 using JwtTest.Middlewares.CSRF;
 using Microsoft.AspNetCore.HttpOverrides;
 using Scalar.AspNetCore;
 
+var secretPath = "/etc/secrets/.env";
+if (File.Exists(secretPath))
+{
+    Env.Load(secretPath);
+}
+else
+{
+    Env.Load(); // Fallback to local .env
+}
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Configuration.AddEnvironmentVariables();
 
 // Add services to the container.
 builder.Services.AddControllers();
